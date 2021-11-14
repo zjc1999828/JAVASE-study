@@ -1,43 +1,29 @@
 ﻿# Properties的使用
----
----
+----
+----
 
+Properties的父类是HashTable，所以其底层是HashMap
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f750f189a3484587b701f66ac403af92.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBATkpVU1RaSkM=,size_20,color_FFFFFF,t_70,g_se,x_16)
+对于setProperty方法
+若没有这个key，则创建。
+若有这个key，则是修改替换。
 
 
 ```java
-@SuppressWarnings({"all"})
-public class Properties_ {
-    public static void main(String[] args) {
-
-        //老韩解读
-        //1. Properties 继承  Hashtable
-        //2. 可以通过 k-v 存放数据，当然key 和 value 不能为 null
-        //增加
-        Properties properties = new Properties();
-        //properties.put(null, "abc");//抛出 空指针异常
-        //properties.put("abc", null); //抛出 空指针异常
-        properties.put("john", 100);//k-v
-        properties.put("lucy", 100);
-        properties.put("lic", 100);
-        properties.put("lic", 88);//如果有相同的key ， value被替换
-
-        System.out.println("properties=" + properties);
-
-        //通过k 获取对应值
-        System.out.println(properties.get("lic"));//88
-
-        //删除
-        properties.remove("lic");
-        System.out.println("properties=" + properties);
-
-        //修改
-        properties.put("john", "约翰");
-        System.out.println("properties=" + properties);
-
-        
-
-
+    @Test
+    public void out() throws IOException {
+        Properties pp = new Properties();
+        pp.load(new FileReader("C:\\Users\\NJUSTZJC\\Desktop\\JavaProjects\\Java projects\\firstProject\\src\\FirstZjc\\data.properties"));
+        String user = pp.getProperty("user");
+        pp.setProperty("id","121110023062");
+        pp.setProperty("name","张佳成");
+        pp.setProperty("pwd","999999999");
+         //中文保存的时候，并不是直接保存中文，而是保存中文的unicode码值。
+        pp.list(System.out);
+        pp.store(new FileOutputStream(
+                "C:\\Users\\NJUSTZJC\\Desktop\\JavaProjects\\Java projects\\firstProject\\src\\FirstZjc\\data.properties2"),
+                null);
     }
-}
 ```
+
 
